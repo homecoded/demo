@@ -8,7 +8,7 @@
      *
      * Abstract:
      * Raymarcher of simple geometric structures that are created by logically combining 3D coordinates in binary space.
-     * Different rendering variables are changed depending on the time to create variation. Raymarch results are stored
+     * Different rendering variables are changed depending on the time to create variation. Raymarcher results are stored
      * in the alpha channel of the canvas.
      * Music is created using ByteBeat.
      *
@@ -18,11 +18,13 @@
     C = V.getContext('2d');
 </script>
 <script>
+    // fullscreen canvas
     V.style.width = innerWidth + 'px';
     V.style.height = innerHeight + 'px';
     V.style.position = 'absolute';
     V.style.top = 0;
     V.style.left = 0;
+    // black canvas background
     V.style.background = '#000';
     var     // canvas
             iWidth = V.width = 440, iHeight = V.height = 300,
@@ -128,7 +130,7 @@
                             fZ > fMinDrawZ & (fX * 2 | fY * 4 & fZ * 8 & fZ & (fY | fX)) & fY
                         )
                     {
-                        // if the ray hit a solid part, then calculate an alpha value depending on
+                        // if the ray hits a solid part, then calculate an alpha value depending on
                         // current z-value (the further back, the greater alpha, the less you see through the
                         // black canvas)
                         fAlpha = Math.min(1000 * ((fZ - iMinZ - fMoveZ) / (iMaxZ - iMinZ)), 255) & 255;
@@ -154,8 +156,8 @@
         (fBeat < 256) && requestAnimationFrame(render);
     }
 
-    // create a Audio element an initialize it with the Base64-encoded wave file
-    // and reusing the variable that holds the wave data
+    // create an Audio element and initialize it with the Base64-encoded wave file
+    // and reuse the variable that holds the wave data
     oAudio = new Audio('data:audio/wav;base64,' + btoa(oAudio));
     // compensate for the delay between play-call and actual starting of the music
     // I want everything to be in perfect sync, so I have the audio element trigger the rendering as soon as
