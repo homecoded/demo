@@ -1,5 +1,10 @@
 <!doctype html>
 <html>
+
+<!-- SCROLL DOWN TO THE SEE THE DEMO-CODE. THIS IS ONLY THE SHIM IN WHICH THE DEMO RUNS. :)
+
+
+
 <!-- note: your demo in this shim runs in an iframe with this content: https://gist.github.com/qfox/3cccc4f36c8319e09bb7 -->
 <!--
 (c) js1k.com 2015
@@ -207,10 +212,19 @@ Note: submissions belong to their respectful owner, do not copy without their co
      * Building on the ray marcher from HC-01 Structures I was able to increase on render speed,
      * style and sound quality. Still, there is a lot room to improve.
      * Take the code inside this script tag, run it trough
+     * 
      * - Google Closure Compiler (http://closure-compiler.appspot.com/home - advanced mode),
      * - Uglify (http://marijnhaverbeke.nl/uglifyjs)
      * - RegPack (http://siorki.github.io/regPack.html - score=2, gain=1, copies=0, tiebreaker=most copies)
      *
+     * Features:
+     * 
+     * - Raymarcher has marching stepsof a variable length to cover more ground while keeping computing power low
+     * - Rendering is done in quater images (only one fourth of a frame is actually rendered, which works well on 
+     *   high frame rates and creates an interesting visual appeal)
+     * - landscape is defined by some simple boolean and binary expressions as well as trigonometric functions 
+     * - music has been created using Lazerbeat (http://lazerbahn.com/lazerbeat.html)
+     * 
      **********************************************/
     var iCounter = 0,
         fStartTime,
@@ -269,7 +283,8 @@ Note: submissions belong to their respectful owner, do not copy without their co
                  iScreenX += 2
             ) {
                 var // start value for the ray vector with some correction on how much of the scene will be
-                    // shown (divisio
+                    // shown (division decreases the visible area showing only a detail view, this could have also been 
+                    // solved by changing the frequencies and in sine-calls and binary expressions for landscape)
                     fRayVectorX = (iScreenX - iWidth / 2) / 25,
                     fRayVectorY = (iScreenY - iHeight / 2) / 12,
                     // Calculate start time of the screen
@@ -281,7 +296,7 @@ Note: submissions belong to their respectful owner, do not copy without their co
                             // The effect should not always be applied. So use time again to switch the effect on
                             // and off again.
                                * (1 & fTime >> 4),
-                    // this simple sin defines the shape of the track, using the same for x change and y change
+                    // this simple sin defines the course of the track (road), using the same for x change and y change
                     fTrackShape = Math.sin(fRayZ / 3000),
                     fTrackPosX = 10000 * fTrackShape,
                     fTrackPosY = 10000 * fTrackShape,
@@ -307,7 +322,7 @@ Note: submissions belong to their respectful owner, do not copy without their co
                      iRayStep++ < iMaxRayMarchSteps;
                 )
                     if (
-                        // Update the current ray position
+                        // Update the current ray position, this is the actual marching
                         fRayX += fRayVectorX * iCurrrentRayStepLength,
                         fRayY += fRayVectorY * iCurrrentRayStepLength,
                         fRayZ += iCurrrentRayStepLength,
