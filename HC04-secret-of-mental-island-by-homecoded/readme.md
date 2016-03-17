@@ -4,10 +4,10 @@ In previous JS1K contents people have entered great musical entries before like
 the [Game of Thrones soundtrack](http://js1k.com/2014-dragons/demo/1953) or the
 [Synth Sphere](http://js1k.com/2013-spring/demo/1558). Those entries heavily 
 relied on procedural generated note progression through code or through bytebeat
-function. This way, composing or recreating music difficult. So, I am trying 
+functions. This way, composing or recreating music is difficult. So, I am trying 
 to find out, if it is possible to use a tracker like Renoise to 
 produce music that can still be used in a tiny program like a 1k JavaScript
-demo without the necessity to couple code and music to tightly.
+demo without the necessity to couple code and music too tightly.
 
 ## Making the Music
 
@@ -19,7 +19,7 @@ memories. My aim is to keep the spirit of the original. I also have to
 reduce the number of notes. This reduces the entropy, which increases 
 compressibility that becomes important later.
 
-The result of this work is the Renoise tracker file [monkey.xrns](monkey.xrns).
+The result of this work is the Renoise tracker file [monkey.xrns](https://github.com/homecoded/demo/raw/master/HC04-secret-of-mental-island-by-homecoded/monkey.xrns).
 
 ## Converting the Music to Javascript Data
  
@@ -84,7 +84,7 @@ the code just a tiny little bit.
     var iNumber = 20;
     iNumber.toString(35); // "k"
 
-I store my data conversion script in the file [extract_music_data.html](extract_music_data.html).
+I store my data conversion script in the file [extract_music_data.html](http://htmlpreview.github.io/?https://github.com/homecoded/demo/blob/master/HC04-secret-of-mental-island-by-homecoded/extract_music_data.html).
 
 ## Building the Player
 
