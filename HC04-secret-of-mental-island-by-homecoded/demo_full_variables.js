@@ -6,35 +6,36 @@ var aNotes = [35, 37, 41, 46, 49, 55, 58, 62, 65, 73, 82, 93, 98, 110, 117, 123,
     iNoteLengthInSamples = .16 * iSampleRate,
     iSampleIndex = 0,
     oProcessor = oAudioContext.createScriptProcessor(4096, 1, 2),
-    k, l, iLocalSampleIndex, aChannel1, aChannel2, r,
+    fFrequencyTrack1,fFrequencyTrack2, iLocalSampleIndex, aChannel1, aChannel2, iWaveHeight,
     x;
 
 oProcessor.onaudioprocess = function (oData) {
     aChannel1 = oData.outputBuffer.getChannelData(0);
     aChannel2 = oData.outputBuffer.getChannelData(1);
     for (iLocalSampleIndex = 0; iLocalSampleIndex < 4096; iLocalSampleIndex++)
-            k = aNotes[parseInt(sTrack1[~~(iSampleIndex / iNoteLengthInSamples)], 35)] ? aNotes[parseInt(sTrack1[~~(iSampleIndex / iNoteLengthInSamples)], 35)] : k,
-            l = aNotes[parseInt(sTrack2 [~~(iSampleIndex / iNoteLengthInSamples)], 35)] ? aNotes[parseInt(sTrack2[~~(iSampleIndex / iNoteLengthInSamples)], 35)] : l,
-            aChannel1[iLocalSampleIndex] = 0 < Math.sin(Math.PI * iSampleIndex / iSampleRate * 4 * k) ? 1 : -1,
-            aChannel2[iLocalSampleIndex] = 0 < Math.sin(Math.PI * iSampleIndex / iSampleRate * 4 * l) ? 1 : -1,
+            fFrequencyTrack1 = aNotes[parseInt(sTrack1[~~(iSampleIndex / iNoteLengthInSamples)], 35)] ? aNotes[parseInt(sTrack1[~~(iSampleIndex / iNoteLengthInSamples)], 35)] : fFrequencyTrack1,
+            fFrequencyTrack2 = aNotes[parseInt(sTrack2 [~~(iSampleIndex / iNoteLengthInSamples)], 35)] ? aNotes[parseInt(sTrack2[~~(iSampleIndex / iNoteLengthInSamples)], 35)] : fFrequencyTrack2,
+            aChannel1[iLocalSampleIndex] = 0 < Math.sin(Math.PI * iSampleIndex / iSampleRate * 4 * fFrequencyTrack1) ? 1 : -1,
+            aChannel2[iLocalSampleIndex] = 0 < Math.sin(Math.PI * iSampleIndex / iSampleRate * 4 * fFrequencyTrack2) ? 1 : -1,
         iSampleIndex > 264 * iNoteLengthInSamples && (iSampleIndex = 0),
             iSampleIndex++
 };
 oProcessor.connect(oAudioContext.destination);
 a.width = 800;
 a.height = 370;
+
+// drawing routine for Melee Island
 setInterval(function (oGradient) {
     oGradient = c.createLinearGradient(0, 0, 0, 370);
     c.fillStyle = oGradient;
     oGradient.addColorStop(0, "#214");
     oGradient.addColorStop(1, "#44F");
     c.fillRect(0, 0, 800, 370);
-    oGradient = c.createLinearGradient(0, 0, 0, 370);
     c.fillStyle = "#002";
-    r = 370 / 6;
+    iWaveHeight = 370 / 6;
     for (x = 0; 800 > x; x++)
-        c.fillRect(x, 4 * r * Math.sin(x / 100) + r / 5 * Math.sin(x / 10) + 370 - r, 2, r * 6);
-    r = 370 / 16;
+        c.fillRect(x, 4 * iWaveHeight * Math.sin(x / 100) + iWaveHeight / 5 * Math.sin(x / 10) + 370 - iWaveHeight, 2, 370);
+    iWaveHeight = 370 / 16;
     for (x = 0; 800 > x; x++)
-        c.fillRect(x, 330 + aChannel2[x << 2] + aChannel1[x << 2], 2, r * 6)
+        c.fillRect(x, 330 + aChannel2[x << 2] + aChannel1[x << 2], 2, 370)
 });

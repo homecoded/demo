@@ -75,17 +75,75 @@ After obtaining the song described as a list of frequencies, I convert the song
 into a string where each character represents an index of the used-notes array.
 The indexes are encoded as base35 encoded numbers. That means a number may 
 be comprised of digits 0-9 and the letters a to y. This analogous to hexadecimal
-numbers, which only contain numbers 0-9 and letters a-f. The encode the track
+numbers, which only contain numbers 0-9 and letters a-f. To encode the music
 base31 would have sufficed but I decide to use a number that is also used as
 a frequency in the note table. This duplication of the number 35 helps compress
-the code just a tiny little bit.
+the code just a tiny little bit better.
 
-    // converting a number to base35
+    // FYI, this is how you convert a number to base35
     var iNumber = 20;
     iNumber.toString(35); // "k"
 
-I store my data conversion script in the file [extract_music_data.html](http://htmlpreview.github.io/?https://github.com/homecoded/demo/blob/master/HC04-secret-of-mental-island-by-homecoded/extract_music_data.html).
+I store my data conversion script in the file [extract_music_data.html](http://htmlpreview.github.io/?https://github.com/homecoded/demo/blob/master/HC04-secret-of-mental-island-by-homecoded/extract_music_data.html?v=1).
 
 ## Building the Player
 
+### A WebAudio API frame
 
+For the player I decide to use the [WebAudio API](https://webaudio.github.io/web-audio-api/), 
+which makes looping the music forever easy and provides a great quality of sound. 
+So, for playing the music I use a ```AudioContext``` and a ```ScriptProcessorNode```.
+The frame for music player looks like this:
+
+    var oAudioContext = new AudioContext,
+        oProcessor = oAudioContext.createScriptProcessor(4096, 1, 2),
+        iLocalSampleIndex
+        iSampleIndex = 0
+    ;
+        
+    oProcessor.onaudioprocess = function (oData) {
+        aChannel1 = oData.outputBuffer.getChannelData(0);
+        aChannel2 = oData.outputBuffer.getChannelData(1);
+        for (iLocalSampleIndex = 0; iLocalSampleIndex < 4096; iLocalSampleIndex++)
+                // get the sample values for the tracks and store them in the audio buffer
+                aChannel1[iLocalSampleIndex] = getSampleValueTrack1AtSampleIndex(iSampleIndex),
+                aChannel2[iLocalSampleIndex] = getSampleValueTrack2AtSampleIndex(iSampleIndex),
+                // loop after 264 notes
+                iSampleIndex > 264 * iNoteLengthInSamples && (iSampleIndex = 0),
+                // increase overall sample index
+                iSampleIndex++
+    };
+    oProcessor.connect(oAudioContext.destination);
+
+It's a very simple setup that writes each track to one of the stereo channels. This way 
+I could spare any code for mixing. This will cause a 100% stereo separation, which probably
+drives anyone insane using headphones. For the sake of saving some precious bytes, this has
+to do. Note, that I also do not use any curly brackets in the for loop, instead I make one
+large statement separated by commas. Again, this is another little byte saver.
+ 
+### Converting the Data back to Music
+
+The demo code contains the note array again as a list of frequencies and two strings containing
+indexes to that array as base35 encoded numbers. When I go through the characters of a string,
+I can determine the frequency for the current track position:
+
+    var 
+        // this is the note array, each entry is the frequency for one note 
+        aNotes = [35, 37, 41, 46, 49, 55, 58, 62, 65, 73, 82, 93, 98, 110, 117, 123, 131, 139, 147, 165, 185, 196, 220, 233, 247, 262, 277, 294, 330, 370],
+        // this is a sample track
+        sTrack = "7 fi7 f 5 d c",
+        // this gives us the index of the character inside the track string
+        iTrackNoteIndex  = Math.floor(iSampleIndex / iNoteLengthInSamples),
+        // this gives us the character at the index, note: you can access characters of a string like an array
+        sNoteIndexBase35 = sTrack[iTrackNoteIndex],
+        // convert the base35 to base10
+        iNoteFrequencyIndex = parseInt(sNoteIndexBase35, 35),
+        // get the frequency at the position
+        iFrequency = aNotes[iNoteFrequencyIndex]
+    ;
+    
+This simple procedure determines the frequency to any given sample index. Together with an
+oscillator I am able to produce sample data, which I can feed into the audio buffer. I like 
+the acoustic properties of square waves, so I decide to go with that instead of a simpler
+oscillator like a sine-wave or a triangle wave. This costs me a few bytes but I really want
+a square wave.
