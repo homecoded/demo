@@ -5,9 +5,9 @@ the [Game of Thrones soundtrack](http://js1k.com/2014-dragons/demo/1953) or the
 [Synth Sphere](http://js1k.com/2013-spring/demo/1558). Those entries heavily 
 relied on procedural generated note progression through code or through bytebeat
 functions. This way, composing or recreating music is difficult. So, I am trying 
-to find out, if it is possible to use a tracker like Renoise to 
-produce music that can still be used in a tiny program like a 1k JavaScript
-demo without the necessity to couple code and music too tightly.
+to find out, if it is possible to use a tool like Renoise to 
+produce music that can still be used in a tiny program like a 1K JavaScript
+demo without the necessity to couple code and music very tightly.
 
 ## Making the Music
 
@@ -15,15 +15,15 @@ As the first step, I select a fairly complex piece of music. My decision goes
 towards the highly sophisticated title soundtrack of Monkey Island that was 
 composed by talented Michael Land. So, I sit down and recreate the music with
 Renoise using only two monophonic tracks while also enjoying sweet childhood 
-memories. My aim is to keep the spirit of the original. I also have to
-reduce the number of notes. This reduces the entropy, which increases 
-compressibility that becomes important later.
+memories. My aim is to keep the spirit of the original but also to
+reduce the number of notes. Reducing the number of notes used  reduces entropy, 
+which increases compressibility.
 
 The result of this work is the Renoise tracker file [monkey.xrns](https://github.com/homecoded/demo/raw/master/HC04-secret-of-mental-island-by-homecoded/monkey.xrns).
 
 ## Converting the Music to Javascript Data
  
-The Renoise module is basically just a ZIP-file. I extracted the ```Song.xml```
+A Renoise module is basically just a ZIP-file. I extract the ```Song.xml```
 from the module and put its contents into a textarea inside a html-file. After
 analyzing the XML file, I find that it can be easily parsed via jQuery. The file
 consists of a list of patterns, which in turn consist of a list of tracks, which
@@ -67,7 +67,7 @@ also defines how many lines are in the pattern.
     
 The result of the first parse run is an array, that contains both tracks with all 
 their notes. Together with a mapping table that assigns a frequency to each note
-name I create two arrays, one for each track, that contain lists of frequencies. 
+name, I create two arrays, one for each track, that contain lists of frequencies. 
 While doing that, I create a list of used notes. The list of actually used notes
 has a length of 30, an information that will be needed later.
 
@@ -75,8 +75,8 @@ After obtaining the song described as a list of frequencies, I convert the song
 into a string where each character represents an index of the used-notes array.
 The indexes are encoded as base35 encoded numbers. That means a number may 
 be comprised of digits 0-9 and the letters a to y. This analogous to hexadecimal
-numbers, which only contain numbers 0-9 and letters a-f. To encode the music
-base31 would have sufficed but I decide to use a number that is also used as
+numbers, which are based on the number 16 and thus contain numbers 0-9 and letters a-f. 
+To encode the music base31 would have sufficed but I decide to use a number that is also used as
 a frequency in the note table. This duplication of the number 35 helps compress
 the code just a tiny little bit better.
 
@@ -92,13 +92,14 @@ I store my data conversion script in the file [extract_music_data.html](http://h
 
 For the player I decide to use the [WebAudio API](https://webaudio.github.io/web-audio-api/), 
 which makes looping the music forever easy and provides a great quality of sound. 
-So, for playing the music I use a ```AudioContext``` and a ```ScriptProcessorNode```.
-The frame for music player looks like this:
+So, for playing the music I use an ```AudioContext``` and a ```ScriptProcessorNode```.
+The technical frame for music player looks like this:
 
     var oAudioContext = new AudioContext,
         oProcessor = oAudioContext.createScriptProcessor(4096, 1, 2),
         iLocalSampleIndex
-        iSampleIndex = 0
+        iSampleIndex = 0,
+        aChannel1, aChannel2
     ;
         
     oProcessor.onaudioprocess = function (oData) {
@@ -118,12 +119,12 @@ The frame for music player looks like this:
 It's a very simple setup that writes each track to one of the stereo channels. This way 
 I could spare any code for mixing. This will cause a 100% stereo separation, which probably
 drives anyone insane using headphones. For the sake of saving some precious bytes, this has
-to do. Note, that I also do not use any curly brackets in the for loop, instead I make one
+to do, though. Note, that I also do not use any curly brackets in the for loop, instead I make one
 large statement separated by commas. Again, this is another little byte saver.
  
-### Converting the Data back to Music
+### Converting the Data Back to Music
 
-The demo code contains the note array again as a list of frequencies and two strings containing
+The demo code contains the note array  as a list of frequencies and two strings containing
 indexes to that array as base35 encoded numbers. When I go through the characters of a string,
 I can determine the frequency for the current track position:
 
@@ -178,10 +179,10 @@ can achieve. The original title screen shows Melee Island by night.
 
 ![Monkey Island Title Screen](http://homecoded.com/prods/hc-04/monkey.jpg "Monkey Island Title Screen")
 
-To make thinks easier I set a fixed canvas size so I can at least rely on the (virtual)
-screen size. In each frame I fill the background with a gradient. Over tha background
-I then draw lines, from the bottom of the screen to a calculated height. I define the
-height via a um of sine functions: One defines the overall shape of the island while
+To make thinks easier I set a fixed canvas size so I can at least rely on this (virtual)
+screen size. In each frame I fill the background with a gradient. Then, over that background
+I draw lines, from the bottom of the screen to a calculated height. I define the
+height via a sum of sine functions: One defines the overall shape of the island while
 the other introduces some variation with a higher frequency.
 
 For the water I simply plot the current content of the audio buffer. This actually 
@@ -191,28 +192,29 @@ make for some nice waves.
 
 ### Square Wave Generation
 
-While the results so far a quite satisfactory, there is a lot of room for improvement.
+While the results so far are quite satisfactory, there is a lot of room for improvement.
 An interesting path for exploration is using a sawtooth wave as base oscillator that gets
-generated by using the sample index and applying a binary AND with 255. If we then AND the 
-result with a power of two we receive a square wave again. The whole process can be 
+generated by using the sample index and applying a binary AND with 255. If I then AND the 
+result with a power of two I'd receive a square wave again. The whole process can be 
 the simplified to a single AND operation. The pitch can be increased or decreased by 
 multiplying the sample index before applying any binary operations.
 
 There is a problem with this approach. The base tone generated by this lies at around 
-172.94 Hz if the sample frequency is set at 44100 Hz. The sample frequency of the WebAudio 
+172.94 Hz if the sample frequency is set to 44100 Hz. The sample frequency of the WebAudio 
 API is not fixed, though. It may be different from device to device. So, if the sample
 frequency is higher than 44100 Hz the base tone is also higher. That means, we have
-to make sure to compensate those possible differences which make the whole process 
+to make sure to compensate those possible differences, which make the whole process 
 a little more complicated. At this point I don't even know if that will reduce the
-size of the demo after all. It probably will, if we als use a sawtooth wave as 
-another oscillator, which would lead to some duplicated code and code containing a lot
-of duplication compresses well.
+size of the demo after all. It probably will, if I also use a sawtooth wave as 
+another oscillator, which would lead to some duplicated cod. And code containing a lot
+of duplication compresses better.
 
-If an Audio element is used, we can specify the sample frequency and thus rely on the same
-base tone pitch on all computers. Downside here is that the Audio element only works on
-some Desktop browses such as Chrome and Firefox, while the WebAudio API also works 
-flawlessly on Android and other mobile platforms. Also, it's easy to get 8bit audio
-working, it's slightly more complicated and thus requires a few more precious bytes.
+If an Audio element is used instead of WebAudio-API, we can specify the sample frequency 
+and thus rely on the same base tone pitch on all computers. Downside here is that 
+the Audio element only works on some Desktop browses such as Chrome and Firefox, 
+while the WebAudio API also works flawlessly on Android and other mobile platforms. 
+Also, it's easy to get 8bit audio working, but it's slightly more complicated to get 
+16 bit or more and thus requires a few more precious bytes.
 
 ### Percussions and more Oscillators
 
