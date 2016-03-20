@@ -230,3 +230,14 @@ are must-haves.
 I hastily put the demo together on the night before I went on a family holiday. My 
 laptop screen was quite bright, so I used colors that look way too dark on other 
 screens. Too bad! I realized my mistake too late.
+
+## License
+
+License: MIT license.
+
+The original Monkey Island soundtrack was composed my Michael Land. LucasArts
+owns all rights to the music. The original soundtrack was altered and simplified
+for the purpose of this code golfing project by Manuel Rülke.
+
+This work is purely for educational purposes. The use of the copyrighted
+music falls under the fair use.

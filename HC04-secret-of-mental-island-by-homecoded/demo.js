@@ -1,3 +1,32 @@
+/**
+ * "The Secret of Mental Island"
+ * JS1K 2916 entry by Manuel Rülke / homecoded /DESiRE
+ *
+ * This is the actual source code used for the entry. The only change
+ * I did was increasing the brightness of the background color. You can
+ * find an annotated version in the file ```demo_full_variables.js```,
+ * which is also part of this repository.
+ *
+ * The file can be compressed using closure compiler ('whitespace only')
+ * and then RackPack'ed (v 4.0.1) using the following settings:
+ *
+ * score:       6
+ * gain:        3
+ * copies:      0
+ * tiebreaker:  most copies first
+ *
+ * The file compresses down to 1024 bytes.
+ *
+ * License: MIT license.
+ *
+ * The original Monkey Island soundtrack was composed my Michael Land. LucasArts
+ * owns all rights to the music. The original soundtrack was altered and simplified
+ * for the purpose of this code golfing project.
+ *
+ * This work is purely for educational purposes. The use of the copyrighted
+ * music falls under the fair use.
+ */
+
 var b = [35, 37, 41, 46, 49, 55, 58, 62, 65, 73, 82, 93, 98, 110, 117, 123, 131, 139, 147, 165, 185, 196, 220, 233, 247, 262, 277, 294, 330, 370],
     d = new AudioContext,
     e = d.sampleRate,
