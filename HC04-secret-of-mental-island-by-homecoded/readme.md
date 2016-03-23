@@ -9,6 +9,14 @@ to find out, if it is possible to use a tool like Renoise to
 produce music that can still be used in a tiny program like a 1K JavaScript
 demo without the necessity to couple code and music very tightly.
 
+*UPDATE:*
+
+Awesome Mathieu 'p01' Henri made a much better looking version of the demo
+that you can checkout here: (http://bl.ocks.org/p01/2bac941529aef959e8c9). 
+He already incorporated some changes/optimizations I had already thought of, too,
+but went much further with this than I had ever thought of. This is really impressive
+and inspriring work!
+
 ## Making the Music
 
 As the first step, I select a fairly complex piece of music. My decision goes
