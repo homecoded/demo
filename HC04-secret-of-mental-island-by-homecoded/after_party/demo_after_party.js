@@ -22,6 +22,7 @@
                      c.globalAlpha = 1,
                      c.font = "62px serif",
                      c.fillText("☁", (4*s%1400) - 300, 220),
+                     c.font = "62px serif",
                      c.fillText("☁", (6*s%1400) - 300, 220),
                      c.font = "110px serif",
                      c.fillText("☁", (7*s%1400) - 300, 220),
