@@ -9,13 +9,21 @@ to find out, if it is possible to use a tool like Renoise to
 produce music that can still be used in a tiny program like a 1K JavaScript
 demo without the necessity to couple code and music very tightly.
 
-*UPDATE:*
+*UPDATE 2016-03-21:*
 
 Awesome Mathieu 'p01' Henri made a much better looking version of the demo
 that you can checkout here: (http://bl.ocks.org/p01/2bac941529aef959e8c9). 
 He already incorporated some changes/optimizations I had already thought of, too,
 but went much further with this than I had ever thought of. This is really impressive
 and inspriring work!
+
+*UPDATE 2016-03-30:*
+
+Peter van der Zee (@kuvos) contributed some improvements to the code size via
+pull request. And then Mathieu 'p01' Henri (@p01) completely reworked the code 
+and shaved unbelievable 124 bytes off. I merged his changes and fixed the 
+minor sound bugs that came with the amazing weight loss. Now, I can compress the
+code to 904 bytes. Still, enough to fit some more stuff into it.
 
 ## Making the Music
 
