@@ -2,9 +2,9 @@
 //    var
         A = new AudioContext,
         C = A.createScriptProcessor(a.width = 1024, 1, 1),
-        C.connect(A.destination),
+        C.connect(A.destination), s = t = 0,
         C.onaudioprocess = function (l) {
-            for (b = l.outputBuffer.getChannelData(s=t=x=y=0),
+            for (b = l.outputBuffer.getChannelData(x=y=0),
                      a.height = 370,
                      c.fillStyle = "#214",
                      c.fillRect(0, x, 1024, 370),
