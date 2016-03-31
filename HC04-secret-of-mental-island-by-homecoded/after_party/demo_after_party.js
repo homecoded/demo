@@ -16,7 +16,7 @@ C.onaudioprocess = function(b) {
   c.fillText("☁", 6 * s % 1336 - 226, 226),
   c.fillStyle = "#003"; d < 1024; s += 6 / A.sampleRate)
     c.fillRect(0, d, 1024, d < 336 ? 1 - d / 336 : 1),
-    c.fillRect(d, 336 + (b[d++] = (22 * s * Math.pow(1.059463, parseInt("    qqqtsqooqqqqqqooomlommmmllllllqqqqqtsqooqqqqqqqsttttvvvvssstsqosttttssssqqqtsqosttttssssqqqtsqooqqqqqqqqqqqqomlommmmllllllllllllllllllllllllllooqqhhhhhhmljmoohhhhhhllhhmmooooovovtvttssqqllllllgghhrrrrrrrrrrrrrrrrxxttttttssttstqtttmmmmmmmmmmmmmmjjggggggeeggegccbbnqbbnn99lljjvzeeqqeellggggsnnzbbnnbbnn99lljjvzeeqqeeqqggggllxxlllleeqqaamybbnn99lleeii66iibbnq99lo77jn77jj77jneeqqggssnnnnbbnqeennllllbbnueenn99lpjjjjjjjjjjjjjjeeiillllll77lu11449999bbbb6622222222bbccggjjjjjjjjjjoonniieeeeeeeeeeebeeiillllllllllqqppllggggggggggll"[0 | s % 264 + (d & 1) * 264], 36) + 9 * (1 - d & 1) ) & 1) -.5), 4, 226 * Math.sin(d / 116) + 16 * Math.sin(d / 16));
+    c.fillRect(d, 336 + (b[d++] = (22 * s * Math.pow(1.059463, parseInt("bbnqbbnn99lljjvzeeqqeellggggsnnzbbnnbbnn99lljjvzeeqqeeqqggggllxxlllleeqqaamybbnn99lleeii66iibbnq99lo77jn77jj77jneeqqggssnnnnbbnqeennllllbbnueenn99lpjjjjjjjjjjjjjjeeiillllll77lu11449999bbbb6622222222bbccggjjjjjjjjjjoonniieeeeeeeeeeebeeiillllllllllqqppllggggggggggll    qqqtsqooqqqqqqooomlommmmllllllqqqqqtsqooqqqqqqqsttttvvvvssstsqosttttssssqqqtsqosttttssssqqqtsqooqqqqqqqqqqqqomlommmmllllllllllllllllllllllllllooqqhhhhhhmljmoohhhhhhllhhmmooooovovtvttssqqllllllgghhrrrrrrrrrrrrrrrrxxttttttssttstqtttmmmmmmmmmmmmmmjjggggggeeggegcc"[0 | s % 264 + (d & 1) * 264], 36) + 9 * (d & 1) ) & 1) -.5), 4, 226 * Math.sin(d / 116) + 16 * Math.sin(d / 16));
   c.fillStyle = "#f6f",
   c.fillText("MENTAL", 420, 146),
   c.fillText("ISLAND", 480, 196),
