@@ -34,9 +34,9 @@ b.bgColor = "#36f",
                 ]
              else
                 P[d][0]--,
-                P[d][1]+=Math.random()/2-.1,
-                P[d][2]-=Math.random()/2;
-            c.fillStyle = '#f41';
-            c.fillRect(P[d][1],P[d][2],2,2);
+                P[d][1]+=Math.random()-.1,
+                P[d][2]-=Math.random();
+            c.fillStyle = 'rgba(250,100,0,.2)';
+            c.fillRect(P[d][1],P[d][2],4,4);
         }
     }
