@@ -29,14 +29,12 @@ b.bgColor = "#36f",
             if(!P[d]||!P[d][0])
                 P[d] = [
                     d/16,
-                    520,
-                    130
+                    520 + Math.random()*8,
+                    128
                 ]
              else
-                P[d][0]--,
-                P[d][1]+=Math.random()-.1,
-                P[d][2]-=Math.random();
-            c.fillStyle = 'rgba(250,100,0,.2)';
-            c.fillRect(P[d][1],P[d][2],4,4);
+                P[d][0]--;
+            c.fillStyle = 'rgba(250,90,0,.2)';
+            c.fillRect(P[d][1]+=Math.random()*.5-.1,P[d][2]-=Math.random()*.5,3,3);
         }
     }
