@@ -1,4 +1,4 @@
-# The Secret of Mental Island - JS1K 2016 - "EleMental"
+# The Secret of Mental Island - JS1K 2016 - "EleMental" - a tiny 1kB JavaScript project
 
 In previous JS1K contents people have entered great musical entries before like 
 the [Game of Thrones soundtrack](http://js1k.com/2014-dragons/demo/1953) or the
@@ -8,6 +8,12 @@ functions. This way, composing or recreating music is difficult. So, I am trying
 to find out, if it is possible to use a tool like Renoise to 
 produce music that can still be used in a tiny program like a 1K JavaScript
 demo without the necessity to couple code and music very tightly.
+
+Direct-link to the 'after-party' version that came to life through help of @p01 and @kuvos
+http://homecoded.com/prods/hc-04/after_party.html
+
+Direct-link to the version that was in the JS1K contest:
+http://js1k.com/2016-elemental/demo/2557
 
 *UPDATE 2016-03-21:*
 
